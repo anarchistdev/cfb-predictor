@@ -1,7 +1,20 @@
-## College Football Game Predictor
+# cfb-predictor (WiP)
 
-Written in php, this tool scans http://www.sports-reference.com/cfb/ and creates a dataset using simple html dom parser.
+Written in php and python, this tool takes an input of two college football teams and attempts to "guess" the winner. 
+
+Status
+---
+As of right now, the CFBPredictor's working parts include the dataset creator, and the php-python communication.
+
+Running
+---
+You mainly just need PHP and python 3. You can run without installing apache, or any other web server by using php itself to run a server:
+
+    php -S localhost:8000
+    
+Afterwards, just navigate to localhost:8000 in your browser to access the web interface.
 
 Requirements
 ---
-- php
+- PHP 5+
+- python 3

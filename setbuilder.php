@@ -32,7 +32,7 @@ class SetBuilder {
             // find conference
             if (strtok($text, " ") === 'Conference:') {
                 $conf = preg_replace('/(Conference:)/', '', $text);
-                $this->team->conf = $conf;
+                $this->team->conf = trim($conf);
             }
             
             // find ranking

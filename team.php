@@ -9,31 +9,23 @@ class Team {
     public $sos; // sos - strength of schedule
     public $name;
     
-    // TODO - make these values automated, pulled from different data
-    // sources.
-    public $conferences = array (
-        "ACC (Atlantic Division)"  => 20,
-        "ACC (Coastal Division)" => 15,
-        "SEC (East Division)"   => 20,
-        "SEC (West Division)"   => 20,
-        "Big 12" => 15,
-        "Sun Belt" => 10,
-        "Ind" => 12
-    );
     
-    public function generatePoints() {
-        $confPoints = $this->conferences[trim($this->conf)];
-        $lossPoints = -($this->losses * 5);
-        $winnPoints = $this->wins * 3;
+    public function export() {
+        $fileName = "sets/" . $this->name . ".txt";
+        $file = file_get_contents($fileName);
+        $line1 = "wins: ". $this->wins;
+        $line2 = "losses: ". $this->losses;
+        $line3 = "conf: ". $this->conf;
+        $line4 = "rank: ". $this->rank;
+        $line5 = "sos: ". $this->sos;
+        $line6 = "numInj: ". $this->numInjuries;
         
-        $rankPoints = 0;
-        if ($this->rank != 0) {
-            $rankPoints = $this->rank / 3;
-        } else {
-            $rankPoints = 15;
-        }
-        
-        return $confPoints + ($lossPoints + $winnPoints) - $rankPoints;
+        $fileCont = $line1 . "\n" . $line2 . "\n" . $line3 . "\n" . $line4 . "\n" . $line5 . "\n"
+            . $line6;
+            
+        $file = $fileCont;
+            
+        file_put_contents($fileName, $file);
     }
     
 }

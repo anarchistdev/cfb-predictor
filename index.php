@@ -9,6 +9,11 @@ $filename = "teams.txt";
 $fp = @fopen($filename, 'r');
 $teams = array();
 
+function execute($py) {
+    $python = `python `. $py;
+    return $python . '<br>';
+}
+
 // Add each line to an array
 if ($fp) {
    $teams = explode("\n", fread($fp, filesize($filename)));
@@ -20,13 +25,16 @@ if (isset($_POST['submit'])) {
     
     $builder = new SetBuilder($team1);
     $builder->buildSet();
-    echo $builder->team->generatePoints() . '  ' . $builder->team->name;
+    $builder->team->export();
     
     if (isset($team2)) {
         $builder = new SetBuilder($team2);
         $builder->buildSet();
-        echo '<br>' . $builder->team->generatePoints() . '  ' . $builder->team->name;
+        $builder->team->export();
     }
+    
+    //$str = system('python py/predictor.py ' . $team1 . ' ' . $team2 . '', $retval);
+    $python = system("python py/predictor.py " . $team1 . " " . $team2, $ret);
 
 }
 
