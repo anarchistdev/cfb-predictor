@@ -22,19 +22,58 @@ class Team(object):
     def set_conf(self, conf):
         self.conf = conf
 
+    def set_rank(self, rank):
+        self.rank = rank
+
+    def get_wins(self):
+        return self.wins
+
+    def get_losses(self):
+        return self.losses
+
+    def get_sos(self):
+        return self.sos
+
+    def get_numInj(self):
+        return self.numInj
+
+    def get_conf(self):
+        return self.conf
+
+    def get_rank(self):
+        return self.rank
+
 class Predictor(object):
     
     def __init__(self, t1, t2):
         self.t1 = Team(t1)
         self.t2 = Team(t2)
         
-    def retrieveInfo(self):
+    def retrieve_info(self):
         t1file = "../sets/" + self.t1.name + ".txt"
         with open(t1file) as f:
             lines = f.readlines()
 
-        print(lines)
+        self.t1.set_wins(lines[0].strip())
+        self.t1.set_losses(lines[1].strip())
+        self.t1.set_conf(lines[2].strip())
+        self.t1.set_rank(lines[3].strip())
+        self.t1.set_sos(lines[4].strip())
+        self.t1.set_numInj(lines[5].strip())
+
+        t2file = "../sets/" + self.t2.name + ".txt"
+        with open(t2file) as f:
+            lines = f.readlines()
+
+        self.t2.set_wins(lines[0].strip())
+        self.t2.set_losses(lines[1].strip())
+        self.t2.set_conf(lines[2].strip())
+        self.t2.set_rank(lines[3].strip())
+        self.t2.set_sos(lines[4].strip())
+        self.t2.set_numInj(lines[5].strip())
+
+        print(self.t1.get_rank())
 
 
 predictor = Predictor(team1, team2)
-predictor.retrieveInfo()
+predictor.retrieve_info()

@@ -48,8 +48,8 @@ class SetBuilder {
             // find sos
             if (strtok($text, " ") === 'SOS:') {
                 $ss = preg_replace('/(SOS:)/', '', $text);
-                $this->team->sos = $this->getSOS(trim($ss));
-            } 
+                $this->team->sos = trim($this->getSOS(trim($ss)));
+            }
             
         }
         
@@ -59,6 +59,26 @@ class SetBuilder {
                 foreach($element->find('td') as $row) {
                     if (strpos($row->plaintext, 'Out') !== false) {
                         $this->team->numInjuries++;
+                    }
+                }
+            }
+        }
+
+        // TODO - combine this foreach with the inj. 
+
+        // Find the Average Rushing Yards
+        foreach($contents->find('table') as $element) {
+            if (trim($element->id) == 'team') {
+                foreach($element->find('td') as $row) {
+                    if ($row->getAttribute("data-stat") === "rush_yds_per_att") {
+                        //echo "Average rushing yrds: " . $row->plaintext . '<br>';
+                        if (!isset($this->team->avgRushYds)) {
+                            $this->team->avgRushYds = $row->plaintext;
+                        }
+                    } else if ($row->getAttribute("data-stat") === "opp_rush_yds_per_att") {
+                        if (!isset($this->team->avgDefRush)) {
+                            $this->team->avgDefRush = $row->plaintext;
+                        }
                     }
                 }
             }

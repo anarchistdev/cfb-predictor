@@ -5,23 +5,29 @@ class Team {
     public $losses;
     public $conf;
     public $numInjuries = 0;
-    public $rank;
+    public $rank; // AP poll
     public $sos; // sos - strength of schedule
     public $name;
+    public $avgRushYds;
+    public $avgDefRush;
     
     
     public function export() {
         $fileName = "sets/" . $this->name . ".txt";
         $file = file_get_contents($fileName);
-        $line1 = "wins: ". $this->wins;
-        $line2 = "losses: ". $this->losses;
-        $line3 = "conf: ". $this->conf;
-        $line4 = "rank: ". $this->rank;
-        $line5 = "sos: ". $this->sos;
-        $line6 = "numInj: ". $this->numInjuries;
-        
+        $line1 = $this->wins;
+        $line2 = $this->losses;
+        $line3 = $this->conf;
+        $line4 = $this->rank;
+        $line5 = $this->sos;
+        $line6 = $this->numInjuries;
+        $line7 = $this->avgRushYds;
+        $line8 = $this->avgDefRush;
+
+        echo $line8;
+
         $fileCont = $line1 . "\n" . $line2 . "\n" . $line3 . "\n" . $line4 . "\n" . $line5 . "\n"
-            . $line6;
+            . $line6 . "\n" . $line7 . "\n" . $line8;
             
         $file = $fileCont;
             

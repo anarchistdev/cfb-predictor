@@ -8,7 +8,11 @@ As of right now, the CFBPredictor's working parts include the dataset creator, a
 
 Running
 ---
-You mainly just need PHP and python 3. You can run without installing apache, or any other web server by using php itself to run a server:
+The first thing you must do is create a directory called `sets` in the root folder:
+
+    mkdir sets
+
+You can run the predictor without installing apache, or any other web server by using php itself to run a server:
 
     php -S localhost:8000
     
@@ -18,3 +22,4 @@ Requirements
 ---
 - PHP 5+
 - python 3
+- scikit-learn
