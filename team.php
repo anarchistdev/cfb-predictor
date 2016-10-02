@@ -10,6 +10,7 @@ class Team {
     public $name;
     public $avgRushYds;
     public $avgDefRush;
+    public $ppg;
     
     
     public function export() {
@@ -23,11 +24,10 @@ class Team {
         $line6 = $this->numInjuries;
         $line7 = $this->avgRushYds;
         $line8 = $this->avgDefRush;
-
-        echo $line8;
+        $line9 = $this->ppg;
 
         $fileCont = $line1 . "\n" . $line2 . "\n" . $line3 . "\n" . $line4 . "\n" . $line5 . "\n"
-            . $line6 . "\n" . $line7 . "\n" . $line8;
+            . $line6 . "\n" . $line7 . "\n" . $line8 . "\n" . $line9;
             
         $file = $fileCont;
             

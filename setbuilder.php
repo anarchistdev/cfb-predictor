@@ -50,6 +50,14 @@ class SetBuilder {
                 $ss = preg_replace('/(SOS:)/', '', $text);
                 $this->team->sos = trim($this->getSOS(trim($ss)));
             }
+
+            // Find the average points per game
+            if (strtok($text, " ") === 'Points/G:') {
+                $txt = trim($this->getSOS(trim($text)));
+                $ppg = preg_replace('([^0-9.]+)', '', $txt);
+                $this->team->ppg = $ppg;
+                //echo $ppg;
+            }
             
         }
         
@@ -77,7 +85,7 @@ class SetBuilder {
                         }
                     } else if ($row->getAttribute("data-stat") === "opp_rush_yds_per_att") {
                         if (!isset($this->team->avgDefRush)) {
-                            $this->team->avgDefRush = $row->plaintext;
+                           $this->team->avgDefRush = $row->plaintext; 
                         }
                     }
                 }

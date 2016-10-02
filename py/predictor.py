@@ -25,6 +25,15 @@ class Team(object):
     def set_rank(self, rank):
         self.rank = rank
 
+    def set_avgRush(self, rush):
+        self.avg_rush = rush
+
+    def set_defRush(self, drush):
+        self.avg_def_rush = drush
+
+    def set_ppg(self, ppg):
+        self.ppg = ppg
+
     def get_wins(self):
         return self.wins
 
@@ -43,6 +52,15 @@ class Team(object):
     def get_rank(self):
         return self.rank
 
+    def get_avgRush(self):
+        return self.avg_rush
+
+    def get_defRush(self):
+        return self.avg_def_rush
+
+    def get_ppg(self):
+        return self.ppg
+
 class Predictor(object):
     
     def __init__(self, t1, t2):
@@ -60,17 +78,25 @@ class Predictor(object):
         self.t1.set_rank(lines[3].strip())
         self.t1.set_sos(lines[4].strip())
         self.t1.set_numInj(lines[5].strip())
+        self.t1.set_avgRush(lines[6].strip())
+        self.t1.set_defRush(lines[7].strip())
+        self.t1.set_ppg(lines[8].strip())
 
         t2file = "../sets/" + self.t2.name + ".txt"
         with open(t2file) as f:
-            lines = f.readlines()
+            lines2 = f.readlines()
 
-        self.t2.set_wins(lines[0].strip())
-        self.t2.set_losses(lines[1].strip())
-        self.t2.set_conf(lines[2].strip())
-        self.t2.set_rank(lines[3].strip())
-        self.t2.set_sos(lines[4].strip())
-        self.t2.set_numInj(lines[5].strip())
+        self.t2.set_wins(lines2[0].strip())
+        self.t2.set_losses(lines2[1].strip())
+        self.t2.set_conf(lines2[2].strip())
+        self.t2.set_rank(lines2[3].strip())
+        self.t2.set_sos(lines2[4].strip())
+        self.t2.set_numInj(lines2[5].strip())
+        self.t2.set_avgRush(lines2[6].strip())
+        self.t2.set_defRush(lines2[7].strip())
+        self.t2.set_ppg(lines2[8].strip())
+
+        print(self.t2.get_rank())
 
         print(self.t1.get_rank())
 
