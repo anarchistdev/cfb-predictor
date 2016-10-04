@@ -1,10 +1,10 @@
 # cfb-predictor (WiP)
 
-Written in php and python, this tool takes an input of two college football teams and attempts to "guess" the winner. 
+Written in php and python, this tool takes an input of two college football teams and attempts to "guess" the winner. NOTE, that the rankings on the site often take a day or so to update, so running the tool right after a game will give outdated statistics.
 
 Status
 ---
-As of right now, the CFBPredictor's working parts include the dataset creator, and the php-python communication.
+As of right now, the working parts include the dataset creator, and the php-python communication.
 
 Running
 ---
@@ -21,5 +21,4 @@ Afterwards, just navigate to localhost:8000 in your browser to access the web in
 Requirements
 ---
 - PHP 5+
-- python 3
-- scikit-learn
+- python 

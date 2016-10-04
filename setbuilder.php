@@ -74,18 +74,35 @@ class SetBuilder {
 
         // TODO - combine this foreach with the inj. 
 
-        // Find the Average Rushing Yards
+        // Collect yardage data
         foreach($contents->find('table') as $element) {
             if (trim($element->id) == 'team') {
                 foreach($element->find('td') as $row) {
+                
+                    // Collect rushing info
                     if ($row->getAttribute("data-stat") === "rush_yds_per_att") {
-                        //echo "Average rushing yrds: " . $row->plaintext . '<br>';
                         if (!isset($this->team->avgRushYds)) {
                             $this->team->avgRushYds = $row->plaintext;
                         }
                     } else if ($row->getAttribute("data-stat") === "opp_rush_yds_per_att") {
                         if (!isset($this->team->avgDefRush)) {
                            $this->team->avgDefRush = $row->plaintext; 
+                        }
+                    }
+                    
+                    // Collect passing info
+                    if ($row->getAttribute("data-stat") === "pass_cmp") {
+                        if (!isset($this->team->passCmp)) {
+                            $this->team->passCmp = $row->plaintext;
+                        }
+                    } else if ($row->getAttribute("data-stat") === "pass_att") {
+                        if (!isset($this->team->passAtt)) {
+                            $this->team->passAtt = $row->plaintext;
+                        }
+                    } else if ($row->getAttribute("data-stat") === "pass_yds") {
+                        if (!isset($this->team->passYds)) {
+                            $this->team->passYds = $row->plaintext;
+                            echo $row->plaintext;
                         }
                     }
                 }

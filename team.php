@@ -10,6 +10,9 @@ class Team {
     public $name;
     public $avgRushYds;
     public $avgDefRush;
+    public $passCmp;
+    public $passAtt;
+    public $passYds;
     public $ppg;
     
     
@@ -25,9 +28,13 @@ class Team {
         $line7 = $this->avgRushYds;
         $line8 = $this->avgDefRush;
         $line9 = $this->ppg;
+        $line10 = $this->passCmp;
+        $line11 = $this->passAtt;
+        $line12 = $this->passYds;
 
         $fileCont = $line1 . "\n" . $line2 . "\n" . $line3 . "\n" . $line4 . "\n" . $line5 . "\n"
-            . $line6 . "\n" . $line7 . "\n" . $line8 . "\n" . $line9;
+            . $line6 . "\n" . $line7 . "\n" . $line8 . "\n" . $line9
+             . "\n" . $line10 . "\n" . $line11 . "\n" . $line12;
             
         $file = $fileCont;
             
