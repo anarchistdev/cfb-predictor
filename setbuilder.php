@@ -102,9 +102,13 @@ class SetBuilder {
                     } else if ($row->getAttribute("data-stat") === "pass_yds") {
                         if (!isset($this->team->passYds)) {
                             $this->team->passYds = $row->plaintext;
-                            echo $row->plaintext;
                         }
+                    } else if ($row->getAttribute("data-stat") === "tot_yds") {
+                        if (!isset($this->team->totalYds)) {
+                            $this->team->totalYds = $row->plaintext;
+                        } 
                     }
+                    
                 }
             }
         }

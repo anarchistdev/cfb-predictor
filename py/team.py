@@ -42,6 +42,9 @@ class TeamStats(object):
     def get_pass_yds(self):
         return float(self.pass_yds)
         
+    def get_total_yds(self):
+        return float(self.total_yds)
+        
     def get_avg_pass_yds(self):
         return float(self.get_pass_yds() / self.get_pass_comp())
         
@@ -63,20 +66,28 @@ class TeamStats(object):
         self.pass_comp        = lines[9].strip()
         self.pass_att         = lines[10].strip()
         self.pass_yds         = lines[11].strip()
+        self.total_yds        = lines[12].strip()
         
         
 class Team(object):
     def __init__(self, name):
         self.team_stats = TeamStats(name)
         self.team_stats.import_info()
-        self.has_possession = False;
-        self.yardline = 0;
+        self.has_possession = False
+        self.yardline = 0
+        self.down = 0
         
     def get_stats(self):
         return self.team_stats
         
     def get_has_possession(self):
         return self.has_possession
+        
+    def get_down(self):
+        return self.down
+        
+    def set_down(self, down):
+        self.down = down
         
     def set_has_possession(self, poss):
         self.has_possession = poss

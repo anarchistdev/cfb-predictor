@@ -12,6 +12,20 @@ class Possession(object):
     def __init__(self, t1, t2):
         self.offense = t1
         self.defense = t2
+        
+    # For now, this function will just base the eqation on the % of pass plays
+    # In the future, it should take into consideration the down and yardage
+    def should_pass(self):
+        totalRushYds = self.offense.get_stats().get_total_yds() - self.offense.get_stats().get_pass_yds()
+        print(totalRushYds)
+        
+    # Return for boolean:
+    #   True if the team scored
+    #   False if the team didn't
+    def drive(self):
+        while (self.offense.get_down() < 4):
+            self.should_pass()
+            self.offense.set_down(4)
 
 
 class Game(object):
@@ -44,9 +58,9 @@ class Game(object):
     def simulate(self):
         self.coin_toss()
         
-        if (team1.get_has_possession()):
-            possession = Possession(team1, team2)
-            
+        if (self.team1.get_has_possession()):
+            possession = Possession(self.team1, self.team2)
+            possession.drive()
             
     
     
