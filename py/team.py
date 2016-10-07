@@ -24,7 +24,7 @@ class TeamStats(object):
     def get_rank(self):
         return float(self.rank)
 
-    def get_avg_rush(self):
+    def get_avg_rush_yds(self):
         return float(self.avg_rush)
 
     def get_def_rush(self):
@@ -75,7 +75,9 @@ class Team(object):
         self.team_stats.import_info()
         self.has_possession = False
         self.yardline = 0
-        self.down = 0
+        self.down = 1
+        self.distance = 10
+        self.points = 0
         
     def get_stats(self):
         return self.team_stats
@@ -86,6 +88,22 @@ class Team(object):
     def get_down(self):
         return self.down
         
+    def add_points(self, p):
+        self.points += p
+        
+    def set_first_down(self):
+        self.down = 1
+        self.distance = 10
+        
+    def get_points(self):
+        return points
+        
+    def get_distance(self):
+        return self.distance
+        
+    def set_distance(self, dist):
+        self.distance = dist
+        
     def set_down(self, down):
         self.down = down
         
@@ -94,6 +112,9 @@ class Team(object):
         
     def get_yardline(self):
         return self.yardline
+        
+    def add_yards(self, yds):
+        self.yardline += yds
         
     def set_yardline(self, yl):
         self.yardline = yl
