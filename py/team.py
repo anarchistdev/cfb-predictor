@@ -96,7 +96,7 @@ class Team(object):
         self.distance = 10
         
     def get_points(self):
-        return points
+        return self.points
         
     def get_distance(self):
         return self.distance
