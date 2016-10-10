@@ -10,24 +10,27 @@ class Logger:
     @staticmethod
     def log_yds(name, yds, did_pass):
         if (did_pass):
-            print(str(name) + " passed for a gain of " + str(yds) + " yards!")
+            Logger.log(str(name) + " passed for a gain of " + str(yds) + " yards!")
         else:
             if (yds < 0):
-                print(name + "'s rb tackled in the backfield for a loss of " + str(abs(yds)) + " yards!")
+                Logger.log(name + "'s rb tackled in the backfield for a loss of " + str(abs(yds)) + " yards!")
             else:
-                print(str(name) + " ran for a gain of " + str(yds) + " yards!")
+                Logger.log(str(name) + " ran for a gain of " + str(yds) + " yards!")
     
     @staticmethod
     def log_first_down(name):
-        print(name + " gained a first down!")
+        Logger.log(name + " gained a first down!")
         
+    @staticmethod
     def log_down(down):
-        print("Down: " + str(down))
+        Logger.log("Down: " + str(down))
         
     @staticmethod
     def log_incomplete():
-        print("Incomplete Pass! 0 yards gained.")
+        Logger.log("Incomplete Pass! 0 yards gained.")
         
+    # TODO - this method should also write to a file in
+    # log/team1+team2.txt
     @staticmethod
     def log(text):
         print(text)
@@ -165,6 +168,14 @@ class Game(object):
             
     
     
+'''
+TODO
+- factor in ppg, rank, conference, and sos from the TeamStats class in the calculations
+- factor in defensive rush and pass statistics
+- create a more effecient model to calculate the yards per play
+- add in quarters
+
+'''
 
 game = Game(t1, t2)
 game.set_verbose(True)
