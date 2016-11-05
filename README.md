@@ -1,7 +1,4 @@
-# cfb-predictor (WiP)
-
-Written in php and python, this tool takes an input of two college football teams and attempts to "guess" the winner. NOTE, that the rankings on the site often take a day or so to update, so running the tool right after a game will give outdated statistics.
-
+# cfb-tools (WiP)
 
 Status
 ---
