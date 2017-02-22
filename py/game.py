@@ -46,17 +46,17 @@ class Possession(object):
 
     # TODO - fix the return statement
     def should_pass(self):
-        total_rush_yds = self.offense.get_stats().get_total_yds() - self.offense.get_stats().get_pass_yds()
-        total_pass_yds = self.offense.get_stats().get_pass_yds()
-        passPct = (total_pass_yds / self.offense.get_stats().get_total_yds()) * 100
+        total_rush_yds = self.offense.team_stats.get_total_yds() - self.offense.team_stats.get_pass_yds()
+        total_pass_yds = self.offense.team_stats.get_pass_yds()
+        passPct = (total_pass_yds / self.offense.team_stats.get_total_yds()) * 100
 
-        if (self.offense.get_down() == 1):
+        if (self.offense.down == 1):
             passPct += random.randint(-8, 8)
-        elif (self.offense.get_down() == 2):
+        elif (self.offense.down == 2):
             passPct += random.randint(2, 6)
             if (self.offense.get_distance() <= 5):
                 passPct -= random.randint(-2, 6)
-        elif (self.offense.get_down() == 3):
+        elif (self.offense.down == 3):
             passPct += random.randint(3, 12)
             if (self.offense.get_distance() <= 3):
                 passPct -= random.randint(25, 45)
@@ -67,7 +67,7 @@ class Possession(object):
         
         
     def calc_pass_comp(self):
-        pass_pct = (self.offense.get_stats().get_pass_comp() / self.offense.get_stats().get_pass_att()) * 100
+        pass_pct = (self.offense.team_stats.get_pass_comp() / self.offense.team_stats.get_pass_att()) * 100
         return pass_pct
         
         
@@ -78,32 +78,32 @@ class Possession(object):
         should_pass = self.should_pass()
         if (should_pass):
             # Use the pass comp to determine if the pass is incomplete
-            yards_gained = random.randint(1, int(self.offense.get_stats().get_avg_pass_yds()+(self.offense.get_stats().get_avg_pass_yds()/2)))
+            yards_gained = random.randint(1, int(self.offense.team_stats.get_avg_pass_yds()+(self.offense.team_stats.get_avg_pass_yds()/2)))
             
         else :
             # TODO - use the defenses rush stats to balance it out
-            yards_gained = random.randint(-5, int(self.offense.get_stats().get_avg_rush_yds()+(self.offense.get_stats().get_avg_rush_yds()/2)))
+            yards_gained = random.randint(-5, int(self.offense.team_stats.get_avg_rush_yds()+(self.offense.team_stats.get_avg_rush_yds()/2)))
             
             
         self.offense.add_yards(yards_gained)
         if (self.verbose):
-            Logger.log_yds(self.offense.get_stats().get_name(), yards_gained, should_pass)
+            Logger.log_yds(self.offense.team_stats.get_name(), yards_gained, should_pass)
             
-        if (self.offense.get_yardline() >= self.first_down): # If the team gets the first down
+        if (self.offense.yardline >= self.first_down): # If the team gets the first down
             self.offense.set_first_down()
-            self.first_down = self.offense.get_yardline() + 10 # Increase the distance to the first down
+            self.first_down = self.offense.yardline + 10 # Increase the distance to the first down
             if (self.verbose):
-                Logger.log_first_down(self.offense.get_stats().get_name())
+                Logger.log_first_down(self.offense.team_stats.get_name())
         else: # If they fail to get the first down
-            self.offense.set_down(self.offense.get_down() + 1) # Increase the down
+            self.offense.set_down(self.offense.down + 1) # Increase the down
             if (self.verbose):
-                Logger.log_down(self.offense.get_down()) 
+                Logger.log_down(self.offense.down) 
             
-        if (self.offense.get_yardline() >= 100): # If they score a touchdown
+        if (self.offense.yardline >= 100): # If they score a touchdown
             self.offense.add_points(7)
             if (self.verbose):
                 Logger.log("Touchdown!")
-                Logger.log("Yardline: " + str(self.offense.get_yardline()))
+                Logger.log("Yardline: " + str(self.offense.yardline))
         
     # Returns the amount of points scored, if any
     def drive(self):
@@ -112,9 +112,9 @@ class Possession(object):
             
         self.offense.set_first_down()
         self.offense.set_yardline(20)
-        while (self.offense.get_yardline() < 100):
+        while (self.offense.yardline < 100):
             self.play()
-            if (self.offense.get_down() >= 4):
+            if (self.offense.down >= 4):
                 break
 
 
@@ -135,13 +135,13 @@ class Game(object):
     def coin_toss(self):
         coin = random.randint(0,1)
         if (coin == 0):
-            self.team1.set_has_possession(True)
+            self.team1.possession = True
             if (self.verbose):
-                print(self.team1.get_stats().get_name() + " has won the coin toss!")
+                print(self.team1.team_stats.get_name() + " has won the coin toss!")
         elif (coin == 1):
-            self.team2.set_has_possession(True)
+            self.team2.possession = True
             if (self.verbose):
-                print(self.team2.get_stats().get_name() + " has won the coin toss!")
+                print(self.team2.team_stats.get_name() + " has won the coin toss!")
             
             
             
@@ -149,22 +149,22 @@ class Game(object):
         if (self.team1.get_has_possession()):
             possession = Possession(self.team1, self.team2, self.verbose)
             possession.drive()
-            self.team2.set_has_possession(True)
-            self.team1.set_has_possession(False)
+            self.team2.possession = True
+            self.team1.possession = False
             
         elif (self.team2.get_has_possession()):
             possession = Possession(self.team2, self.team1, self.verbose)
             possession.drive()
-            self.team1.set_has_possession(True)
-            self.team2.set_has_possession(False)
+            self.team1.possession = True
+            self.team2.possession = False
             
         self.finalize()
         self.simulate()
         
     def finalize(self):
         if (self.verbose):
-            Logger.log(self.team1.get_stats().get_name() + " " + str(self.team1.get_points()))
-            Logger.log(self.team2.get_stats().get_name() + " " + str(self.team2.get_points()))
+            Logger.log(self.team1.team_stats.get_name() + " " + str(self.team1.get_points()))
+            Logger.log(self.team2.team_stats.get_name() + " " + str(self.team2.get_points()))
             
     
     

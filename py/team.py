@@ -78,44 +78,8 @@ class Team(object):
         self.down = 1
         self.distance = 10
         self.points = 0
-        
-    def get_stats(self):
-        return self.team_stats
-        
-    def get_has_possession(self):
-        return self.has_possession
-        
-    def get_down(self):
-        return self.down
-        
-    def add_points(self, p):
-        self.points += p
-        
-    def set_first_down(self):
-        self.down = 1
-        self.distance = 10
-        
-    def get_points(self):
-        return self.points
-        
-    def get_distance(self):
-        return self.distance
-        
-    def set_distance(self, dist):
-        self.distance = dist
-        
-    def set_down(self, down):
-        self.down = down
-        
-    def set_has_possession(self, poss):
-        self.has_possession = poss
-        
-    def get_yardline(self):
-        return self.yardline
-        
-    def add_yards(self, yds):
-        self.yardline += yds
-        
-    def set_yardline(self, yl):
-        self.yardline = yl
+		
+	def add_yards(self, yds):
+		self.yardline += yds
+
 
